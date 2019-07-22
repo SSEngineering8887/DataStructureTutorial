@@ -1,0 +1,21 @@
+﻿*push and pop
+pop and pull
+pull and delete
+insert and retrieve
+~
+*peek
+pop
+pull 
+insert
+~
+*smashing
+phishing
+collaboration
+diminishing
+~
+*bounded
+unbounded
+dynamic
+static
+~
+

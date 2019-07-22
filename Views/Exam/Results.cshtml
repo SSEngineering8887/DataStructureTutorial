@@ -1,0 +1,90 @@
+﻿@model DataStruct.Models.ExamStats
+
+@{
+    ViewBag.Title = "Results";
+}
+
+<h2>Your Latest Results</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayName("User Name")
+
+        </dt>
+
+        <dd>
+            @ViewBag.UserName
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExamScore)
+        </dt>
+
+        <dd>
+
+            
+            <p id="demo">@Html.DisplayFor(model => model.ExamScore).ToHtmlString()</p>
+
+
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExamDate)
+        </dt>
+
+        <dd>
+          @Html.DisplayFor(model => model.ExamDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CorrectAnswers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CorrectAnswers)
+        </dd>
+    </dl>
+    <div class="btn" onclick="location.href='@Url.Action("SendEmail", "Exam")'" type="button">Email Results</div>
+    <script>
+
+        var nums = [];
+        
+
+        for (var i = 0; i < 100; i++)
+        {
+            nums.push(i);
+        }
+
+
+        var cal = setInterval(Calculate, 10);
+        setTimeout(Stop,3000);
+        setTimeout(SetScore, 3000);
+
+        function Calculate()
+        {
+
+            var index = Math.floor((Math.random() * 100));
+            document.getElementById("demo").innerHTML = nums[index];
+        }
+
+        function Stop()
+        {
+
+            clearTimeout(cal);
+            
+
+        }
+
+        function SetScore()
+        {
+            
+            var e = document.getElementById("demo").innerHTML = @Math.Round(Model.ExamScore,2)+'%';
+           
+        }
+    </script>
+</div>
+

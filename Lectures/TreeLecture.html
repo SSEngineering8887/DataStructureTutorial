@@ -1,0 +1,336 @@
+﻿<div>
+    <div class="mt-5 ml-5">
+        <h2 class="text-center">Tree</h2>
+        <p>
+            In computer science, a tree is a widely used abstract data type (ADT)—or data structure implementing this ADT—that simulates a hierarchical tree structure, with a root value and subtrees of children with a parent node, represented as a set of linked nodes.
+
+            A tree data structure can be defined recursively as a collection of nodes (starting at a root node), where each node is a data structure consisting of a value, together with a list of references to nodes (the "children"), with the constraints that no reference is duplicated, and none points to the root.
+
+            Alternatively, a tree can be defined abstractly as a whole (globally) as an ordered tree, with a value assigned to each node. Both these perspectives are useful: while a tree can be analyzed mathematically as a whole, when actually represented as a data structure it is usually represented and worked with separately by node (rather than as a set of nodes and an adjacency list of edges between nodes, as one may represent a digraph, for instance). For example, looking at a tree as a whole, one can talk about "the parent node" of a given node, but in general as a data structure a given node only contains the list of its children, but does not contain a reference to its parent (if any).
+
+            <br />
+            Preliminary definition:
+            <ul>
+                <li>Not a tree: two non-connected parts, A→B and C→D→E. There is more than one root.</li>
+
+                <li>Not a tree: undirected cycle 1-2-4-3. 4 has more than one parent (inbound edge).</li>
+
+                <li>Not a tree: cycle B→C→E→D→B. B has more than one parent (inbound edge).</li>
+
+                <li>Not a tree: cycle A→A. A is the root but it also has a parent.</li>
+            </ul>
+
+            <b>Each linear list is trivially a tree</b>
+            <br />
+            A tree is a nonlinear data structure, compared to arrays, linked lists, stacks and queues which are linear data structures. A tree can be empty with no nodes or a tree is a structure consisting of one node called the root and zero or one or more subtrees.
+        </p>
+
+        <h4> Mathematical definition</h4>
+        <p>
+            <b>Unordered tree</b>
+            <br />
+            Mathematically, an unordered tree (or "algebraic tree") can be defined as an algebraic structure (X, parent) where X is the non-empty carrier set of nodes and parent is a function on X which assigns each node x its "parent" node, parent(x). The structure is subject to the condition that every non-empty subalgebra must have the same fixed point. That is, there must be a unique "root" node r, such that parent(r) = r and for every node x, some iterative application parent(parent(…parent(x)…)) equals r.
+
+            There are several equivalent definitions. As the closest alternative, one can define unordered trees as partial algebras (X, parent) which are obtained from the total algebras described above by letting parent(r) be undefined. That is, the root r is the only node on which the parent function is not defined and for every node x, the root is reachable from x in the directed graph (X, parent). This definition is in fact coincident with that of an anti-arborescence.
+
+            Another equivalent definition is that of a set-theoretic tree that is singly-rooted and whose height is at most ω. That is, the algebraic structures (X, parent) are equivalent to partial orders (X, ≤) that have a top element r and whose every principal upset (aka principal filter) is a finite chain. To be precise, we should speak about an inverse set-theoretic tree since the set-theoretic definition usually employs opposite ordering. The correspondence between (X, parent) and (X, ≤) is established via reflexive transitive closure / reduction, with the reduction resulting in the "partial" version without the root cycle.
+
+            The definition of trees in descriptive set theory (DST) utilizes the representation of partial orders (X, ≥) as prefix orders between finite sequences. In turns out that up to isomorphism, there is a one-to-one correspondence between the (inverse of) DST trees and the tree structures defined so far.
+
+            We can refer to the four equivalent characterizations as to tree as an algebra, tree as a partial algebra, tree as a partial order, and tree as a prefix order. There is also a fifth equivalent definition – that of a graph-theoretic rooted tree which is just a connected acyclic rooted graph.
+
+            The expression of trees as (partial) algebras (X, parent) follows directly the implementation of tree structures using parent pointers. Typically, the partial version is used in which the root node has no parent defined. However, in some implementations or models even the parent(r) = r circularity is established. Notable examples:
+
+            The Linux VFS where "The root dentry has a d_parent that points to itself".
+            The concept of an instantiation tree from object-oriented programming. In this case, the root node is the top metaclass – the only class that is a direct instance of itself.
+            Note that the above definition admits infinite trees. This allows for the description of infinite structures supported by some implementations via lazy evaluation. A notable example is the infinite regress of eigenclasses from the Ruby object model.[7] In this model, the tree established via superclass links between non-terminal objects is infinite and has an infinite branch (a single infinite branch of "helix" objects – see the diagram).
+        </p>
+
+        <h4> Sibling sets</h4>
+        <p>
+            In every unordered tree (X, parent) there is a distinguished partition of the set X of nodes into sibling sets. Two non-root nodes x, y belong to the same sibling set if parent(x) = parent(y). The root node r forms the singleton sibling set {r}. A tree is said to be locally finite or finitely branching if each of its sibling sets is finite.
+
+            Each pair of distinct siblings is incomparable in ≤. This is why the word unordered is used in the definition. Such a terminology might become misleading when all sibling sets are singletons, i.e. when the set X of all nodes is totally ordered (and thus well-ordered) by ≤. In such a case we might speak about a singly-branching tree instead.
+        </p>
+
+        <h4>Using set inclusion</h4>
+        <p>
+            As with every partially ordered set, tree structures (X, ≤) can be represented by containment order – by set systems in which ≤ is coincident with ⊆, the induced inclusion order. Consider a structure (U, ℱ) such that U is a non-empty set, and ℱ is a set of subsets of U such that the following are satisfied:
+
+            ∅ ∉ ℱ.   (That is, (U, ℱ) is a hypergraph.)
+            U ∈ ℱ.
+            For every X, Y from ℱ,   X ∩ Y ∈ {∅, X, Y}.   (That is, ℱ is a laminar family.[8])
+            For every X from ℱ,   there are only finitely many Y from ℱ such that X ⊆ Y.
+            Then the structure (ℱ, ⊆) is an unordered tree whose root equals U. Conversely, if (U, ≤) is an unordered tree, and ℱ is the set {↓x | x ∈ U} of all principal ideals of (U, ≤) then the set system (U, ℱ) satisfies the above properties.
+
+        </p>
+
+        <h4> Tree as a laminar system of sets</h4>
+        <p>
+            The set-system view of tree structures provides the default semantic model – in the majority of most popular cases, tree data structures represent containment hierarchy. This also offers a justification for order direction with the root at the top. The root node is a greater container than any other node. Notable examples:
+            <ul>
+
+                <li>
+
+                    Directory structure of a file system:A directory contains its sub-directories.
+                </li>
+                <li>
+                    DOM tree: The document parts corresponent to DOM nodes are in subpart relation according to the tree order
+                </li>
+                <li>
+                    Single inheritance in object-oriented programming:
+                    An instance of a class is also an instance of a superclass.
+                </li>
+
+                <li> Hierarchical taxonomy such as the Dewey Decimal Classification with sections of increasing specificity.</li>
+                <li> BSP trees, quadtrees, octrees, R-trees and other tree data structures used for recursive space partitioning.</li>
+            </ul>
+        </p>
+        <h4> Ordered tree</h4>
+        <p>
+            The structures introduced in the previous subsection form just the core "hierarchical" part of tree data structures that appear in computing. In most cases, there is also an additional "horizontal" ordering between siblings. The correspondent expansion of the previously described tree structures (X, ≤) can be defined as follows.
+
+            An ordered tree is a structure (X, ≤V, ≤S) where X is a non-empty set of nodes and ≤V and ≤S are relations on X called vertical (or also hierarchical[1]) order and sibling order, respectively. The structure is subject to the following conditions:
+
+            (X, ≤V) is a partial order that is an unordered tree as defined in the previous subsection.
+            (X, ≤S) is a partial order.
+            The partial orders ≤V and ≤S are orthogonal: ((<V) ∪ (>
+                V)) ∩ ((<S) ∪ (>
+                    S))  =  ∅.
+                    <br />
+        </p>
+
+        <h4>Traversal maps</h4>
+
+        <b>Generating structure</b>
+        <p>
+            The traversal maps constitute a partial unary algebra (X, parent, previousSibling, …, nextNode) that forms a basis for representing trees as linked data structures. At least conceptually, there are parent links, sibling adjacency links, and first / last child links. This also applies to unordered trees in general, which can be observed on the dentry data structure in the Linux VFS.
+
+            Similarly to the "V-S-H-L±" system of partial orders, there are pairs of traversal maps that uniquely determine the whole ordered tree structure. Naturally, one such generating structure is (X, ≺V, ≺S) which can be transcribed as (X, parent, nextSibling) – the structure of parent and next-sibling links. Another important generating structure is (X, firstChild, nextSibling) known as left-child right-sibling binary tree. This partial algebra establishes a one-to-one correspondence between binary trees and ordered trees.
+        </p>
+
+        <h4>Definition using binary trees</h4>
+        <p>
+            The correspondence to binary trees provides a concise definition of ordered trees as partial algebras.
+
+            An ordered tree is a structure (X, lc, rs) where X is a non-empty set of nodes, and lc, rs are partial maps on X called left-child and right-sibling, respectively. The structure is subject to the following conditions:
+
+            The partial maps lc and rs are disjoint, i.e. (lc) ∩ (rs)  =  ∅ .
+            The inverse of (lc) ∪ (rs) is a partial map p such that the partial algebra (X, p) is an unordered tree.
+            The partial order structure (X, ≤V, ≤S) is obtained as follows:
+
+            (≺S)	 = 	(rs),
+            (≻V)	 = 	(lc) ○ (≤S).
+            <br />
+            <h6> <b>Terminology used in trees:</b></h6>
+
+            <ul>
+                <li>
+                    Root:
+                    The top node in a tree.
+                </li>
+                <li>
+                    Child:
+                    A node directly connected to another node when moving away from the root.
+                </li>
+                <li>
+                    Parent:
+                    The converse notion of a child.
+                </li>
+                <li>
+                    Siblings:
+                    A group of nodes with the same parent.
+                </li>
+                <li>
+                    Descendant:
+                    A node reachable by repeated proceeding from parent to child. Also known as subchild.
+                </li>
+                <li>
+                    Ancestor:
+                    A node reachable by repeated proceeding from child to parent.
+                </li>
+                <li>
+                    Leaf:
+
+                    A node with no children.
+                </li>
+                <li>
+                    Branch node:
+
+                    A node with at least one child.
+                </li>
+
+                <li>   Degree: For a given node, its number of children. A leaf is necessarily degree zero.</li>
+                <li>
+                    Edge:
+                    The connection between one node and another.
+                </li>
+                <li>
+                    Path:
+                    A sequence of nodes and edges connecting a node with a descendant.
+                </li>
+                <li>
+                    Level:
+                    The level of a node is defined as: 1 + the number of edges between the node and the root.
+                </li>
+                <li>
+                    Depth:
+                    The depth of a node is defined as: the number of edges between the node and the root.
+                </li>
+                <li>
+                    Height of node:
+                    The height of a node is the number of edges on the longest path between that node and a descendant leaf.
+                </li>
+                <li>
+                    Height of tree:
+                    The height of a tree is the height of its root node.
+                </li>
+                <li>
+                    Forest:
+                    A forest is a set of n ≥ 0 disjoint trees.
+                </li>
+            </ul>
+        </p>
+        <h4>Data type versus data structure</h4>
+
+        <p>
+            There is a distinction between a tree as an abstract data type and as a concrete data structure, analogous to the distinction between a list and a linked list. As a data type, a tree has a value and children, and the children are themselves trees; the value and children of the tree are interpreted as the value of the root node and the subtrees of the children of the root node. To allow finite trees, one must either allow the list of children to be empty (in which case trees can be required to be non-empty, an "empty tree" instead being represented by a forest of zero trees), or allow trees to be empty, in which case the list of children can be of fixed size (branching factor, especially 2 or "binary"), if desired.
+
+            As a data structure, a linked tree is a group of nodes, where each node has a value and a list of references to other nodes (its children). There is also the requirement that no two "downward" references point to the same node. Nodes in a tree could have next/previous references or references to their parent nodes.
+
+            Due to the use of references to trees in the linked tree data structure, trees are often discussed implicitly assuming that they are being represented by references to the root node, as this is often how they are actually implemented. For example, rather than an empty tree, one may have a null reference: a tree is always non-empty, but a reference to a tree may be null.
+        </p>
+
+        <h4>Recursive</h4>
+        <p>
+            Recursively, as a data type a tree is defined as a value (of some data type, possibly empty), together with a list of trees (possibly an empty list), the subtrees of its children; symbolically:
+
+            t: v [t[1], ..., t[k]]
+            (A tree t consists of a value v and a list of other trees.)
+
+            More elegantly, via mutual recursion, of which a tree is one of the most basic examples, a tree can be defined in terms of a forest (a list of trees), where a tree consists of a value and a forest (the subtrees of its children):
+
+            f: [t[1], ..., t[k]]
+            t: v f
+            Note that this definition is in terms of values, and is appropriate in functional languages (it assumes referential transparency); different trees have no connections, as they are simply lists of values.
+
+            As a data structure, a tree is defined as a node (the root), which itself consists of a value (of some data type, possibly empty), together with a list of references to other nodes (list possibly empty, references possibly null); symbolically:
+
+            n: v [&n[1], ..., &n[k]]
+            (A node n consists of a value v and a list of references to other nodes.)
+
+            This data structure defines a directed graph,[c] and for it to be a tree one must add a condition on its global structure (its topology), namely that at most one reference can point to any given node (a node has at most a single parent), and no node in the tree point to the root. In fact, every node (other than the root) must have exactly one parent, and the root must have no parents.
+
+            Indeed, given a list of nodes, and for each node a list of references to its children, one cannot tell if this structure is a tree or not without analyzing its global structure and that it is in fact topologically a tree, as defined below.
+        </p>
+
+        <h4>Type theory</h4>
+        <p>
+            As an ADT, the abstract tree type T with values of some type E is defined, using the abstract forest type F (list of trees), by the functions:
+
+            <pre>
+            <code>
+            <span style="color:tomato">
+                        value: T → E
+                        children: T → F
+                        nil: () → F
+                        node: E × F → T
+                        with the axioms:
+
+                        value(node(e, f)) = e
+                        children(node(e, f)) = f
+                    </span>
+                </code>
+            </pre>
+            In terms of type theory, a tree is an inductive type defined by the constructors nil (empty forest) and node (tree with root node with given value and children).
+        </p>
+
+        <h4>Mathematical</h4>
+
+        <p>
+            Viewed as a whole, a tree data structure is an ordered tree, generally with values attached to each node. Concretely, it is (if required to be non-empty):
+
+            A rooted tree with the "away from root" direction (a more narrow term is an "arborescence"), meaning:
+            A directed graph,
+            whose underlying undirected graph is a tree (any two vertices are connected by exactly one simple path),
+            with a distinguished root (one vertex is designated as the root),
+            which determines the direction on the edges (arrows point away from the root; given an edge, the node that the edge points from is called the parent and the node that the edge points to is called the child),
+            together with:
+
+            an ordering on the child nodes of a given node, and
+            a value (of some data type) at each node.
+            Often trees have a fixed (more properly, bounded) branching factor (outdegree), particularly always having two child nodes (possibly empty, hence at most two non-empty child nodes), hence a "binary tree".
+
+            Allowing empty trees makes some definitions simpler, some more complicated: a rooted tree must be non-empty, hence if empty trees are allowed the above definition instead becomes "an empty tree, or a rooted tree such that ...". On the other hand, empty trees simplify defining fixed branching factor: with empty trees allowed, a binary tree is a tree such that every node has exactly two children, each of which is a tree (possibly empty).The complete sets of operations on tree must include fork operation.
+        </p>
+        <h4>Terminology</h4>
+        <p>
+            A node is a structure which may contain a value or condition, or represent a separate data structure (which could be a tree of its own). Each node in a tree has zero or more child nodes, which are below it in the tree (by convention, trees are drawn growing downwards). A node that has a child is called the child's parent node (or ancestor node, or superior). A node has at most one parent.
+
+            An internal node (also known as an inner node, inode for short, or branch node) is any node of a tree that has child nodes. Similarly, an external node (also known as an outer node, leaf node, or terminal node) is any node that does not have child nodes.
+
+            The topmost node in a tree is called the root node. Depending on definition, a tree may be required to have a root node (in which case all trees are non-empty), or may be allowed to be empty, in which case it does not necessarily have a root node. Being the topmost node, the root node will not have a parent. It is the node at which algorithms on the tree begin, since as a data structure, one can only pass from parents to children. Note that some algorithms (such as post-order depth-first search) begin at the root, but first visit leaf nodes (access the value of leaf nodes), only visit the root last (i.e., they first access the children of the root, but only access the value of the root last). All other nodes can be reached from it by following edges or links. (In the formal definition, each such path is also unique.) In diagrams, the root node is conventionally drawn at the top. In some trees, such as heaps, the root node has special properties. Every node in a tree can be seen as the root node of the subtree rooted at that node.
+
+            The height of a node is the length of the longest downward path to a leaf from that node. The height of the root is the height of the tree. The depth of a node is the length of the path to its root (i.e., its root path). This is commonly needed in the manipulation of the various self-balancing trees, AVL Trees in particular. The root node has depth zero, leaf nodes have height zero, and a tree with only a single node (hence both a root and leaf) has depth and height zero. Conventionally, an empty tree (tree with no nodes, if such are allowed) has height −1.
+
+            A subtree of a tree T is a tree consisting of a node in T and all of its descendants in T.[d][13] Nodes thus correspond to subtrees (each node corresponds to the subtree of itself and all its descendants) – the subtree corresponding to the root node is the entire tree, and each node is the root node of the subtree it determines; the subtree corresponding to any other node is called a proper subtree (by analogy to a proper subset).
+        </p>
+
+        <h4>Drawing trees</h4>
+        <p>
+            Trees are often drawn in the plane. Ordered trees can be represented essentially uniquely in the plane, and are hence called plane trees, as follows: if one fixes a conventional order (say, counterclockwise), and arranges the child nodes in that order (first incoming parent edge, then first child edge, etc.), this yields an embedding of the tree in the plane, unique up to ambient isotopy. Conversely, such an embedding determines an ordering of the child nodes.
+
+            If one places the root at the top (parents above children, as in a family tree) and places all nodes that are a given distance from the root (in terms of number of edges: the "level" of a tree) on a given horizontal line, one obtains a standard drawing of the tree. Given a binary tree, the first child is on the left (the "left node"), and the second child is on the right (the "right node").
+        </p>
+        <h4>Representations</h4>
+        <p>
+            There are many different ways to represent trees; common representations represent the nodes as dynamically allocated records with pointers to their children, their parents, or both, or as items in an array, with relationships between them determined by their positions in the array (e.g., binary heap).
+
+            Indeed, a binary tree can be implemented as a list of lists (a list where the values are lists): the head of a list (the value of the first term) is the left child (subtree), while the tail (the list of second and subsequent terms) is the right child (subtree). This can be modified to allow values as well, as in Lisp S-expressions, where the head (value of first term) is the value of the node, the head of the tail (value of second term) is the left child, and the tail of the tail (list of third and subsequent terms) is the right child.
+
+            In general a node in a tree will not have pointers to its parents, but this information can be included (expanding the data structure to also include a pointer to the parent) or stored separately. Alternatively, upward links can be included in the child node data, as in a threaded binary tree.
+        </p>
+
+        <h4>Generalizations</h4>
+
+        <b>Digraphs</b>
+        <br />
+        <p>
+            If edges (to child nodes) are thought of as references, then a tree is a special case of a digraph, and the tree data structure can be generalized to represent directed graphs by removing the constraints that a node may have at most one parent, and that no cycles are allowed. Edges are still abstractly considered as pairs of nodes, however, the terms parent and child are usually replaced by different terminology (for example, source and target). Different implementation strategies exist: a digraph can be represented by the same local data structure as a tree (node with value and list of children), assuming that "list of children" is a list of references, or globally by such structures as adjacency lists.
+
+            In graph theory, a tree is a connected acyclic graph; unless stated otherwise, in graph theory trees and graphs are assumed undirected. There is no one-to-one correspondence between such trees and trees as data structure. We can take an arbitrary undirected tree, arbitrarily pick one of its vertices as the root, make all its edges directed by making them point away from the root node – producing an arborescence – and assign an order to all the nodes. The result corresponds to a tree data structure. Picking a different root or different ordering produces a different one.
+
+            Given a node in a tree, its children define an ordered forest (the union of subtrees given by all the children, or equivalently taking the subtree given by the node itself and erasing the root). Just as subtrees are natural for recursion (as in a depth-first search), forests are natural for corecursion (as in a breadth-first search).
+
+            Via mutual recursion, a forest can be defined as a list of trees (represented by root nodes), where a node (of a tree) consists of a value and a forest (its children):
+
+            <pre>
+            <code>
+            <span style="color:tomato">
+                        f: [n[1], ..., n[k]]
+                        n: v f
+                    </span>
+                </code>
+            </pre>
+        </p>
+        <h4> Traversal methods</h4>
+
+        <p>Stepping through the items of a tree, by means of the connections between parents and children, is called walking the tree, and the action is a walk of the tree. Often, an operation might be performed when a pointer arrives at a particular node. A walk in which each parent node is traversed before its children is called a pre-order walk; a walk in which the children are traversed before their respective parents are traversed is called a post-order walk; a walk in which a node's left subtree, then the node itself, and finally its right subtree are traversed is called an in-order traversal. (This last scenario, referring to exactly two subtrees, a left subtree and a right subtree, assumes specifically a binary tree.) A level-order walk effectively performs a breadth-first search over the entirety of a tree; nodes are traversed level by level, where the root node is visited first, followed by its direct child nodes and their siblings, followed by its grandchild nodes and their siblings, etc., until all nodes in the tree have been traversed.</p>
+
+        <h4> Common operations</h4>
+        <p>
+            <ul>
+                <li>Enumerating all the items</li>
+                <li>Enumerating a section of a tree</li>
+                <li>Searching for an item</li>
+                <li>Adding a new item at a certain position on the tree</li>
+                <li>Deleting an item</li>
+                <li>Pruning: Removing a whole section of a tree</li>
+                <li>Grafting: Adding a whole section to a tree</li>
+                <li>Finding the root for any node</li>
+                <li>Finding the lowest common ancestor of two nodes</li>
+            </ul>
+        </p>
+        <iframe width="852" height="480" src="https://www.youtube.com/embed/IpyCqRmaKW4?list=PLqM7alHXFySHCXD7r1J0ky9Zg_GBB1dbk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+</div>

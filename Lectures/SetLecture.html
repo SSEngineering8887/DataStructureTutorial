@@ -1,0 +1,97 @@
+﻿<div class="mt-5 ml-5">
+    <h2 class="text-center">Set</h2>
+    <p>
+        In computer science, a set is an abstract data type that can store unique values, without any particular order. It is a computer implementation of the mathematical concept of a finite set. Unlike most other collection types, rather than retrieving a specific element from a set, one typically tests a value for membership in a set.
+
+        Some set data structures are designed for static or frozen sets that do not change after they are constructed. Static sets allow only query operations on their elements — such as checking whether a given value is in the set, or enumerating the values in some arbitrary order. Other variants, called dynamic or mutable sets, allow also the insertion and deletion of elements from the set.
+
+        A multiset is a special kind of set in which an element can figure several times.
+    </p>
+    <h4>Type theory</h4>
+    <p>
+        In type theory, sets are generally identified with their indicator function (characteristic function): accordingly, a set of values of type  A may be denoted by 2^{A}}. Subtypes and subsets may be modeled by refinement types, and quotient sets may be replaced by setoids. The characteristic function F of a set S is defined as:
+
+
+        In theory, many other abstract data structures can be viewed as set structures with additional operations and/or additional axioms imposed on the standard operations. For example, an abstract heap can be viewed as a set structure with a min(S) operation that returns the element of smallest value.
+    </p>
+
+    <h4>Operations</h4>
+    <p>
+        <b>Core set-theoretical operations</b>
+        <br />
+        One may define the operations of the algebra of sets:
+
+        <ul>
+            <li>union(S,T): returns the union of sets S and T.</li>
+            <li> intersection(S,T): returns the intersection of sets S and T.</li>
+            <li> difference(S,T): returns the difference of sets S and T.</li>
+            <li> subset(S,T): a predicate that tests whether the set S is a subset of set T.</li>
+        </ul>
+
+        <h4>Static sets</h4>
+        Typical operations that may be provided by a static set structure S are:
+        <ul>
+            <li> is_element_of(x,S): checks whether the value x is in the set S.</li>
+            <li>is_empty(S): checks whether the set S is empty.</li>
+            <li>size(S) or cardinality(S): returns the number of elements in S.</li>
+            <li>iterate(S): returns a function that returns one more value of S at each call, in some arbitrary order.</li>
+            <li>enumerate(S): returns a list containing the elements of S in some arbitrary order.</li>
+
+            <li>create_from(collection): creates a new set structure containing all the elements of the given collection or all the elements returned by the given iterator.</li>
+        </ul>
+
+        <h4>Dynamic sets</h4>
+
+        Dynamic set structures typically add:
+        <ul>
+            <li> create(): creates a new, initially empty set structure.</li>
+            <li> create_with_capacity(n): creates a new set structure, initially empty but capable of holding up to n elements.</li>
+            <li>add(S,x): adds the element x to S, if it is not present already.</li>
+            <li> remove(S, x): removes the element x from S, if it is present.</li>
+            <li>capacity(S): returns the maximum number of values that S can hold.</li>
+        </ul>
+
+
+        Some set structures may allow only some of these operations. The cost of each operation will depend on the implementation, and possibly also on the particular values stored in the set, and the order in which they are inserted.
+    </p>
+    <h4> Additional operations</h4>
+    <p>
+        There are many other operations that can (in principle) be defined in terms of the above, such as:
+        <ul>
+            <li> pop(S): returns an arbitrary element of S, deleting it from S.</li>
+            <li> pick(S): returns an arbitrary element of S.Functionally, the mutator pop can be interpreted as the pair of selectors (pick, rest), where rest returns the set consisting of all elements except for the arbitrary element. Can be interpreted in terms of iterate.</li>
+            <li>map(F,S): returns the set of distinct values resulting from applying function F to each element of S.</li>
+            <li>
+                filter(P,S): returns the subset containing all elements of S that satisfy a given predicate P.
+            </li>        fold(A0,F,S): returns the value A|S| after applying Ai+1 := F(Ai, e) for each
+            <li>element e of S, for some binary operation F. F must be associative and commutative for this to be well-defined.</li>
+            <li>clear(S): delete all elements of S.</li>
+            <li>equal(S1', S2'): checks whether the two given sets are equal (i.e. contain all and only the same elements).</li>
+            <li> hash(S): returns a hash value for the static set S such that if equal(S1, S2) then hash(S1) = hash(S2)</li>
+        </ul>
+        Other operations can be defined for sets with elements of a special type:
+        <ul>
+            <li>sum(S): returns the sum of all elements of S for some definition of "sum". For example, over integers or reals, it may be defined as fold(0, add, S).</li>
+            <li>collapse(S): given a set of sets, return the union.For example, collapse({{1}, {2, 3}}) == {1, 2, 3}. May be considered a kind of sum.</li>
+            <li>flatten(S): given a set consisting of sets and atomic elements (elements that are not sets), returns a set whose elements are the atomic elements of the original top-level set or elements of the sets it contains. In other words, remove a level of nesting – like collapse, but allow atoms. This can be done a single time, or recursively flattening to obtain a set of only atomic elements.For example, flatten({1, {2, 3}}) == {1, 2, 3}.</li>
+            <li>nearest(S,x): returns the element of S that is closest in value to x (by some metric).</li>
+            <li>min(S), max(S): returns the minimum/maximum element of S.</li>
+        </ul>
+    </p>
+    <h4>Implementations</h4>
+    <p>
+        Sets can be implemented using various data structures, which provide different time and space trade-offs for various operations. Some implementations are designed to improve the efficiency of very specialized operations, such as nearest or union. Implementations described as "general use" typically strive to optimize the element_of, add, and delete operations. A simple implementation is to use a list, ignoring the order of the elements and taking care to avoid repeated values. This is simple but inefficient, as operations like set membership or element deletion are O(n), as they require scanning the entire list. Sets are often instead implemented using more efficient data structures, particularly various flavors of trees, tries, or hash tables.
+
+        As sets can be interpreted as a kind of map (by the indicator function), sets are commonly implemented in the same way as (partial) maps (associative arrays) – in this case in which the value of each key-value pair has the unit type or a sentinel value (like 1) – namely, a self-balancing binary search tree for sorted sets (which has O(log n) for most operations), or a hash table for unsorted sets (which has O(1) average-case, but O(n) worst-case, for most operations). A sorted linear hash table may be used to provide deterministically ordered sets.
+
+        Further, in languages that support maps but not sets, sets can be implemented in terms of maps. For example, a common programming idiom in Perl that converts an array to a hash whose values are the sentinel value 1, for use as a set, is:
+        <br />
+        <code>my %elements = map { $_ => 1 } @@elements;</code>
+        <br />
+
+        Other popular methods include arrays. In particular a subset of the integers 1..n can be implemented efficiently as an n-bit bit array, which also support very efficient union and intersection operations. A Bloom map implements a set probabilistically, using a very compact representation but risking a small chance of false positives on queries.
+
+        The Boolean set operations can be implemented in terms of more elementary operations (pop, clear, and add), but specialized algorithms may yield lower asymptotic time bounds. If sets are implemented as sorted lists, for example, the naive algorithm for union(S,T) will take time proportional to the length m of S times the length n of T; whereas a variant of the list merging algorithm will do the job in time proportional to m+n. Moreover, there are specialized set data structures (such as the union-find data structure) that are optimized for one or more of these operations, at the expense of others.
+    </p>
+    <iframe width="853" height="480" src="https://www.youtube.com/embed/yRP1ppn6dEA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>

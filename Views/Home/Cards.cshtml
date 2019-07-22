@@ -1,0 +1,37 @@
+﻿@model List<string>
+
+@{
+    ViewBag.Title = "Cards";
+    int counter = 0;
+
+}
+
+
+
+
+
+    <div class="row mt-5">
+
+        <div class="card-deck">
+            @foreach (var item in Model)
+            {
+
+                <div class="col-4">
+
+                    <div class="card border-primary mb-3">
+                        <img class="card-img-top" src="@item" alt="Card image cap" height="190">
+                        <div class="card-body bg-secondary">
+                            <h6 class="card-title font-weight-bold text-center">@ViewBag.lectureQuestionNames[counter] </h6>
+                            <p class="card-text">In computer science, an array data structure, or simply an array, is a data structure consisting of a collection of elements (values or variables), each identified by at least one array index or key.</p>
+                            <button class=" btn-primary rounded" onclick="location.href='@Url.Action("Index", "Home", new { id = counter + 1 })'" type="button">Start Lecture</button>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                counter++;
+            }
+        </div>
+    </div>
+

@@ -1,0 +1,43 @@
+﻿@model DataStructuresTutorials.Models.ProductModel
+
+    @{
+        Layout = null;
+    }
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+        <form action="/ShoppingCart/Test" method="post">
+            <table>
+                @for (int i = 0; i < Model.products.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.CheckBoxFor(x => x.products[i].isSelected)
+                        </td>
+                        <td>
+                            @Html.HiddenFor(x => x.products[i].Name)
+                            @Model.products[i].Name
+                        </td>
+                        <td>
+                            @Html.HiddenFor(x => x.products[i].Price)
+                            @Model.products[i].Price
+                        </td>
+                    </tr>
+                }
+            </table>
+
+            <button type="submit">Submit</button>
+        </form>
+
+
+
+    </div>
+</body>
+</html>

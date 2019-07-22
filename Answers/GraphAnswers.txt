@@ -1,0 +1,33 @@
+﻿*undirected graph and directed graph
+directed graph
+undirected graph
+neither
+~
+*finite
+infinite
+~
+*adjacent(G, x, y)
+perpendicular(G, x, y)
+adjacent(G, x)
+perpendicular(G, y)
+~
+*records or objects
+integers
+2-dimensional arrays
+jagged-arrays
+~
+*rows,columns
+columns,rows
+records,objects
+objects,records
+~
+*Incidence matrix
+dependent matrix
+independent matrix
+bitwise matrix
+~
+*Adjacency lists
+linked lists
+dynamic lists
+static lists
+~

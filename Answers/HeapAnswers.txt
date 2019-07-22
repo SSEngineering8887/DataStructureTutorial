@@ -1,0 +1,43 @@
+﻿*tree-based,tree
+array-based,array
+list-based, list
+stack-based, stack
+~
+*1964
+1975
+1983
+2009
+~
+
+*min heap
+max heap
+dynamic heap
+min dynamic heap
+~
+
+*in-place 
+out of place
+of type int
+of type string
+~
+
+*2N - 2s2(N) − e2(N)
+2N + 2s2(N) − e2(N)
+2N − 2s2(N) + e2(N)
+2N − 2s2(N) * e2(N)
+~
+*complete binary tree
+incomplete binary tree
+restructured tree
+parsed tree
+~
+*C++ libraries
+Ruby libraries
+C# libraries
+Java libraries
+~
+
+
+
+
+

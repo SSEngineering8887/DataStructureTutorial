@@ -1,0 +1,194 @@
+﻿@using DataStruct.ViewModels
+@model  List<ExamViewModel>
+
+
+
+@{
+    ViewBag.Title = "ExamView";
+}
+<body onload="countdown()">
+
+    <h2 class="mt-5">ExamView</h2>
+    <h1 id="demo"></h1>
+    @{
+        int i = 1;
+        int counter = 0;
+       
+
+    }
+
+    @*<div>
+            Time Left : <input id="minutes" type="text" style="width:10px; padding-left:0px;
+                 border: none; font-size: 16px;
+                font-weight: bold; color: white; ">
+
+               :
+
+            <input   id="seconds" type="text" style="width: 20px;
+                            border: none; font-size: 16px;
+                            font-weight: bold; color: white;background-color:black ">
+
+        </div>*@
+    
+    <div>
+        Time Left : <label id="minutes"> </label>
+        : <label id="seconds"> </label>
+    </div>
+
+
+    <div>
+        @using (Html.BeginForm("Index", "Exam", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+
+            foreach (var examViewModel in Model)
+            {
+
+
+                <p>@i)@Html.DisplayFor(e => examViewModel.Question)</p>
+
+
+
+                <ol type="A" id="test">
+
+                    @foreach (var answer in examViewModel.Answers)
+
+                    {
+
+                        <li id="answer">
+                            @Html.RadioButton(examViewModel.Question, examViewModel.IsCorrect.ElementAt(counter))@answer
+                        </li>
+
+                        counter++;
+
+                    }
+                </ol>
+
+                counter = 0;
+
+
+                i++;
+
+
+
+
+            }
+            <input type="submit" name="save" value="Submit" />
+
+
+
+        }
+        <script>
+
+            //set minutes
+            var mins = 5;
+           
+
+            //calculate the seconds
+             var secs = mins * 60;
+            
+            //countdown function is evoked when page is loaded
+            function countdown() {
+                setTimeout('Decrement()', 60);
+            }
+
+            //Decrement function decrement the value.
+            function Decrement() {
+                if (document.getElementById) {
+
+                    //label variables
+                    //minutes = document.getElementById("minutes");
+                    //seconds = document.getElementById("seconds");
+
+                    //Less than min and < 10 secs
+                    if (secs % 60 < 10 && secs < 60) {
+
+                        document.getElementById("minutes").innerHTML = mins;
+                        document.getElementById("seconds").innerHTML = "0" + (secs % 10);
+                    }
+
+                    //Less than 1 min
+                    else if (secs < 59) {
+
+                        //minutes.value = mins;
+                       // seconds.value = secs;
+                        document.getElementById("minutes").innerHTML = mins;
+                        document.getElementById("seconds").innerHTML = secs;
+                    }
+
+                    //If more than 1 min but less than 10 secs
+                    else if (secs % 60 < 10 && secs > 59) {
+
+                        //minutes.value = mins;
+                        //seconds.value = "0" + (secs % 10);
+                        document.getElementById("minutes").innerHTML = mins;
+                        document.getElementById("seconds").innerHTML = "0" + (secs % 10);
+                    }
+
+                    //Display both minutes and seconds
+                    //getminutes and getseconds is used to
+                    //get minutes and seconds
+                    else {
+
+                       // minutes.value = getminutes();
+                       // seconds.value = getseconds();
+
+                        document.getElementById("minutes").innerHTML = getminutes();
+                        document.getElementById("seconds").innerHTML = getseconds();
+                    }
+                    //when less than a minute remaining
+                    //colour of the minutes and seconds
+                    //changes to red
+                    if (mins < 1) {
+
+                       // minutes.style.color = "red";
+                        //seconds.style.color = "red";
+                        document.getElementById("minutes").style.color = "red";
+                        document.getElementById("seconds").style.color = "red";
+                    }
+                    //if seconds becomes zero,
+                    //then page alert time up
+                    if (secs < 0) {
+                        alert('time up');
+                        //minutes.value = 0;
+                        //seconds.value = "0" + 0;
+                        document.getElementById("minutes").innerHTML = 0;
+                        document.getElementById("seconds").innerHTML = "0"+ 0;
+                    }
+                    //if seconds > 0 then seconds is decremented
+                    else {
+                        secs--;
+                        setTimeout('Decrement()', 1000);
+                    }
+                }
+            }
+
+            function getminutes() {
+
+                //minutes is seconds divided by 60, rounded down
+                mins = Math.floor(secs / 60);
+
+                return mins;
+            }
+
+            function getseconds() {
+                //take minutes remaining (as seconds) away
+                //from total seconds remaining
+                return secs - Math.round(mins * 60);
+            }
+
+
+        </script>
+
+
+    </div>
+
+</body>
+
+
+
+
+
+
+

@@ -1,0 +1,34 @@
+﻿*dequeue()
+enqueue()
+add()
+remove()
+~
+*First-In-First-Out (FIFO)
+Last- In -First-Out (LIFO)
+~
+*sequential collection
+n^2 collection
+O(log n) collection
+n^3 collection
+~
+*bounded queue
+unbounded queue
+conventional queue
+unconventional queue
+~
+*O(1)
+O(n)
+O(n^2)
+O(n^3)
+~
+*add
+remove
+double
+triple
+~
+*circle
+isosceles triangle
+multi-dimensional array
+jagged array
+~
+

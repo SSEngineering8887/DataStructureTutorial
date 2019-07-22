@@ -1,0 +1,52 @@
+﻿@model IEnumerable<DataStruct.Models.Products>
+@using DataStruct.Models;
+
+@{
+    ViewBag.Title = "Details";
+    int index = 1;
+}
+
+<h3 class="ml-3 mt-5 mb-3 " id="text"> Our Products</h3>
+
+<div class="container">
+    <form action="/ShoppingCart/AddToCart" method="get">
+
+        <div class="row">
+            
+            @foreach (var item in Model)
+            {
+            <div class="col-3">
+                <img class="ml-2 img-thumbnail border-primary" src="~/@item.Images" alt="Image Name" height="250" width="200" >
+
+
+                <div class="form-check my-2">
+                    <label class="form-check-label">
+                        <input type="checkbox" name="id" value="@index"> Add Item
+                    </label>
+
+
+                </div>
+                <div class="ml-3">
+                    <label>
+                       Price: @item.Price
+                    </label>
+                </div>
+            </div>
+              
+
+                index++;
+
+
+
+            }
+        </div>
+        <input class=" btn-primary rounded float-right" type="submit" value="Go to Cart">
+    </form>
+
+</div>
+
+
+
+
+
+

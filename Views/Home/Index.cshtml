@@ -1,0 +1,23 @@
+﻿@model List<string>
+
+<div>
+    @{
+        var idParam = Url.RequestContext.RouteData.Values["id"];
+
+
+    }
+
+    @Html.Raw(Model.FirstOrDefault())
+    @*{ Html.RenderPartial("_Graph"); }*@
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3  p-lg-5">
+                <button class=" btn bg-primary" onclick="location.href='@Url.Action("Index", "Exam", new { id = idParam })'" type="button">Take Exam</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

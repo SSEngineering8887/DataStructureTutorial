@@ -1,0 +1,28 @@
+﻿*two children
+three children
+four children
+any amount of children
+~
+*placement
+root
+data type
+design
+~
+*one
+two
+three
+none
+~
+*extended binary trees
+binary trees
+red-black trees
+b-trees
+~
+*rooted tree
+binary trees
+red-black trees
+b-trees
+~
+
+
+

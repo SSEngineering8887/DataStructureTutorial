@@ -1,0 +1,41 @@
+﻿*linear collection
+integer collection
+string collection
+indexed collection
+~
+*tail
+rear
+back 
+root
+~
+*data, and a reference
+object and a key
+heap and a reference
+array and reference
+~
+*such as random access
+such as definitive access
+such as registered access
+such as stack-based access
+~
+*Arrays
+Linked Lists
+Trees
+queues
+~
+*inserted or removed
+inserted
+removed
+copied
+~
+*1955–1956
+1965–1966
+1975–1976
+1985–1986
+~
+*insertion, deletion and traversal.
+insertion only 
+deletion only
+traversal only
+~
+

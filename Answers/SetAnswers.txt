@@ -1,0 +1,45 @@
+﻿*unique values
+random values
+only integer values
+only b -trees
+~
+*(pop, clear, and add),
+(pop, remove, and add),
+(push, clear, and enqueue),
+(pop, dequeue, and add),
+~
+*membership
+duplication
+root value
+being distinct
+~
+*several
+5 or more 
+7 or more 
+8 or more 
+~
+*set structures
+list structures
+queue structures
+n^2 structures
+~
+*"general use"
+"restricted use"
+"exlusive use"
+"single use"
+~
+*order of
+data type of
+size of
+state of
+~
+*O(n)
+O(n^2)
+O(n^3)
+O(log n)
+~
+*hash table
+linked list
+array
+dictionary
+~
