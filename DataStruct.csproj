@@ -493,9 +493,6 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Checkout\Index.cshtml" />
-    <Content Include="Views\Checkout\StripeFailure.cshtml" />
-    <Content Include="Views\Checkout\StripeSuccess.cshtml" />
     <Content Include="Views\Exam\Index.cshtml" />
     <Content Include="Views\Exam\Results.cshtml" />
     <Content Include="Views\Exam\SendEmail.cshtml" />
@@ -507,6 +504,8 @@
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\ShoppingCart\Test.cshtml" />
     <Content Include="Views\Store\Details.cshtml" />
+    <Content Include="Views\Checkout\Success.cshtml" />
+    <Content Include="Views\Checkout\Failure.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

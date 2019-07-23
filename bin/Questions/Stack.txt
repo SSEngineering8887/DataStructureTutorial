@@ -1,9 +1,0 @@
-﻿In computer science, a stack is an abstract data type that serves as a collection of elements, with two principal operations:_____
-~
- _____ operation may give access to the top without modifying the stack.
-~
-Malicious parties may attempt a stack _______ attack that takes advantage of this type of implementation by providing oversized data input to a program that does not check the length of input.
-~
-An array can be used to implement a ________ stack
-~
-

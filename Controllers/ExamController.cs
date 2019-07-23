@@ -17,12 +17,7 @@ namespace DataStruct.Controllers
     {
         
         
-        private string pw = "password";
-
-        public int totalCorrectAnswers = 0;
-        //Db object
         public ApplicationDbContext context = new ApplicationDbContext();
-        //List of 
         public List<ExamViewModel> examViewModels = new List<ExamViewModel>();
         public static ExamStats examStats = new ExamStats();
 
@@ -37,23 +32,22 @@ namespace DataStruct.Controllers
                                 orderby question.QuestionsId
                                 select question;
 
+           
             var test = questionQuery.ToList();
+            //Reorder test questions
             test.Shuffle();
            
             //Retrieve all the answers for each question
             var answerQuery = from answer in context.Answers
-                              //orderby answer.QuestionModelId, answer.AnswerModelId
                               select answer;
             var answerTest = answerQuery.ToList();
+            
+            //Reorder test answers
             answerTest.Shuffle();
-
-
-
-
+        
             //For every question add all of its answers and whether theyre correct
             foreach (var q in test)
             {
-
                 examViewModels.Add(new ExamViewModel()
                 {
                     Question = q.Question,
@@ -62,19 +56,20 @@ namespace DataStruct.Controllers
                     
                 });
 
-              
-
             }
-            return View("Index", examViewModels);
+               return View("Index", examViewModels);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(FormCollection fc)
         {
-           
+            
+            //Retrieves route data
             int routeId = int.Parse(Url.RequestContext.RouteData.Values["id"].ToString());
+            //Retrieves current user id
             int? userId = int.Parse(User.Identity.GetUserId());
+
             int amountCorrect = 0;
             int totalQuestions = 0;
             var hasBoolValue = true;
@@ -96,11 +91,9 @@ namespace DataStruct.Controllers
                 {
                     amountCorrect++;
                 }
+
                 hasBoolValue = true;
             }
-
-
-
 
             ExamStats e = context.ExamStats.Add(new ExamStats()
             {
@@ -108,11 +101,8 @@ namespace DataStruct.Controllers
                 ExamScore = ((double)amountCorrect / totalQuestions * 100),
                 CorrectAnswers = amountCorrect,
                 ExamStatsId = userId.Value,
-                UserId = 1,
+                UserId = userId.Value,
                 ExamsId = routeId
-
-
-
             });
 
             if (ModelState.IsValid)
@@ -150,26 +140,25 @@ namespace DataStruct.Controllers
         public ActionResult SendEmail()
         {
 
-         string pw = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\password.txt";
-
-            string email = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\email.txt";
-
-
+            string pw = Utility.Utility.GetFileData("password.txt");
+            string email = Utility.Utility.GetFileData("email.txt");
             var id = User.Identity.GetUserId<int>();
-
-
             ViewBag.UserName = context.Users.Where(x => x.Id == id).First().UserName;
+
             try
             {
                 //Configuring webMail class to send emails  
                 //gmail smtp server  
                 WebMail.SmtpServer = "smtp.gmail.com";
+                
                 //gmail port to send emails  
                 WebMail.SmtpPort = 587;
                 WebMail.SmtpUseDefaultCredentials = true;
+                
                 //sending emails with secure protocol  
                 WebMail.EnableSsl = true;
-                //EmailId used to send emails from application  
+                
+                //Email address used to send emails from application  
                 WebMail.UserName = email;
                 WebMail.Password = pw;
 
@@ -180,6 +169,7 @@ namespace DataStruct.Controllers
                 WebMail.Send(to: email, subject: "Results: " + DateTime.Now, body: $"User Name: {ViewBag.UserName}<br>Score:{examStats.ExamScore}<br>Date:{examStats.ExamDate}", isBodyHtml: true);
                 ViewBag.Status = "Email Sent Successfully.";
             }
+
             catch (Exception)
             {
                 ViewBag.Status = "Problem while sending email, Please check details.";

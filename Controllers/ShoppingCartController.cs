@@ -11,54 +11,51 @@ namespace DataStruct.Controllers
     public class ShoppingCartController : Controller
     {
         ApplicationDbContext dbContext = new ApplicationDbContext();
-      
+
         // GET: /ShoppingCart/
         public ActionResult Index()
         {
-            StripeConfiguration.ApiKey = "sk_test_2LmLOaJqH0omNzjuF1u3Yl5a00FSZT9CV2";
+            StripeConfiguration.ApiKey = Utility.Utility.GetFileData("Stripe_Key.txt");
+
             var cart = ShoppingCart.GetCart(this.HttpContext);
+            var tempList = new List<SessionLineItemOptions>();
+            
+ 
+
+            for (int i = 0; i < cart.GetCartItems().Count; i++)
+            {
+                
+
+                tempList.Add (new SessionLineItemOptions()
+                {
+                    Amount = (long)(cart.GetCartItems().ElementAt(i).Product.Price * 100),
+                    Currency = "USD",
+                    Description = $"Written by: {cart.GetCartItems().ElementAt(i).Product.Description}",
+                    Quantity = cart.GetCartItems().ElementAt(i).Count,
+                    Name = cart.GetCartItems().ElementAt(i).Product.Name,
+                    
+                });
+               
+                    
+            }
+
             var options = new SessionCreateOptions
             {
-                SuccessUrl = "https://localhost:44376/Checkout/StripeSuccess",
-                CancelUrl = "https://localhost:44376/Checkout/StripeFailure",
-                CustomerEmail = "customer@example.com",
-                BillingAddressCollection = "required",
                 PaymentMethodTypes = new List<string>
                 {
-                   "card",
+                "card",
                 },
 
-                LineItems = new List<SessionLineItemOptions>
-                {
-                    new SessionLineItemOptions
-                    {
-                    Name = cart.GetCartItems().ElementAt(1).Product.Name,
-                    Description = "Comfortable cotton t-shirt",
-                    Amount = 1500,
-                    Currency = "usd",
-                    Quantity = 2,
-                    },
+                LineItems = tempList,
+                SuccessUrl = "https://localhost:44321/Checkout/Success",
+                CancelUrl = "https://localhost:44321/Checkout/Failure",
+                 };
 
-                    new SessionLineItemOptions
-                    {
-                    Name = "Lesson 1",
-                    Description = "Arrays",
-                    Amount = 25,
-                    Currency = "usd",
-                    Quantity = 1,
-                    Images = new List<string>(){ @"https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.geeksforgeeks.org%2Fwp-content%2Fuploads%2FArray-In-C.png&imgrefurl=https%3A%2F%2Fwww.geeksforgeeks.org%2Fintroduction-to-arrays%2F&docid=J0FChqgdAYrNUM&tbnid=TfHp12IrH0DYTM%3A&vet=10ahUKEwivnamV74jjAhVlhOAKHVU1CPUQMwh-KAAwAA..i&w=800&h=378&bih=657&biw=1366&q=array&ved=0ahUKEwivnamV74jjAhVlhOAKHVU1CPUQMwh-KAAwAA&iact=mrc&uact=8"
-                    }
-                }
-            }
-            };
 
 
             var service = new SessionService();
-            Session session = new Session();
-            session = service.Create(options);
+            Session session = service.Create(options);
 
-
-            //var cart = ShoppingCart.GetCart(this.HttpContext);
 
             // Set up our ViewModel
             var viewModel = new ShoppingCartViewModel
@@ -71,17 +68,17 @@ namespace DataStruct.Controllers
             return View(viewModel);
         }
 
-      
+
         public ActionResult AddToCart(int[] id)
         {
-            
+
             var query = from p in dbContext.Products
                         select p;
 
             List<Products> temp = query.ToList();
 
             List<Products> products = new List<Products>();
-           if (id == null)
+            if (id == null)
             {
                 id = new int[temp.Count];
             }
@@ -90,7 +87,7 @@ namespace DataStruct.Controllers
             {
                 for (int j = 0; j < temp.Count; j++)
                 {
-                    if(temp[j].Id == id[i])
+                    if (temp[j].Id == id[i])
                     {
                         products.Add(temp[j]);
                     }
@@ -98,19 +95,19 @@ namespace DataStruct.Controllers
             }
 
 
-           
+
             // Add it to the shopping cart
             var cart = ShoppingCart.GetCart(this.HttpContext);
             foreach (var item in products)
             {
                 cart.AddToCart(item);
             }
-            
+
 
             // Go back to the main store page for more shopping
             return RedirectToAction("Index");
         }
-       
+
         // AJAX: /ShoppingCart/RemoveFromCart/5
         [HttpPost]
         public ActionResult RemoveFromCart(int id)

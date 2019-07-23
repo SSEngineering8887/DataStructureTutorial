@@ -11,8 +11,8 @@ namespace DataStruct.Utility
 {
     public static class Utility
     {
-        
-       [ThreadStatic] private static Random Local;
+
+        [ThreadStatic] private static Random Local;
         static Random random = new Random();
 
         public static Random ThisThreadsRandom
@@ -38,14 +38,14 @@ namespace DataStruct.Utility
         public static decimal GenerateRandomPrice()
         {
             decimal price = 0m;
-           
-            price = Decimal.Parse((random.Next(20, 101) + .99).ToString());
+
+            price = Decimal.Parse((random.Next(20, 101)).ToString());
 
             return price;
         }
 
 
-        public static List<string> GetLectureNames() 
+        public static List<string> GetLectureNames()
         {
             var lectureNames = new List<string>()
             {
@@ -81,6 +81,13 @@ namespace DataStruct.Utility
             };
 
             return lecturePhotoAddresses;
+        }
+
+        public static string GetFileData (string fileName)
+        {
+          string data =  System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\" + fileName);
+
+            return data;
         }
     }
 }
