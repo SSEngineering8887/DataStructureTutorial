@@ -4,7 +4,7 @@
     ViewBag.Title = "Results";
 }
 
-<h2>Your Latest Results</h2>
+<h2 class="mt-5">Your Latest Results</h2>
 
 <div>
 
@@ -48,7 +48,7 @@
             @Html.DisplayFor(model => model.CorrectAnswers)
         </dd>
     </dl>
-    <div class="btn" onclick="location.href='@Url.Action("SendEmail", "Exam")'" type="button">Email Results</div>
+    <div class="btn btn-primary" onclick="location.href='@Url.Action("SendEmail", "Exam")'" type="button">Email Results</div>
     <script>
 
         var nums = [];

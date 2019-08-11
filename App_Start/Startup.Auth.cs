@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using DataStruct.Models;
 using DataStruct.Controllers;
+using DataStruct.Json;
 
 namespace DataStruct
 {
@@ -59,15 +60,20 @@ namespace DataStruct
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: Utility.Utility.GetFileData("fbsecrets.txt").Split(',')[0],
+               appSecret: Utility.Utility.GetFileData("fbsecrets.txt").Split(',')[1]);
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+
+            var json = Json.Json.DeserializeJson("gsecr.json");
+
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = json.Web.Client_Id,
+                ClientSecret = json.Web.Client_secret
+                
+                });
+                
         }
     }
 }

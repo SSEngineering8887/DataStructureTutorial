@@ -6,6 +6,8 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Threading;
 using DataStruct.Models;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace DataStruct.Utility
 {
@@ -83,12 +85,26 @@ namespace DataStruct.Utility
             return lecturePhotoAddresses;
         }
 
-        public static string GetFileData (string fileName)
+        public static string GetFileData(string fileName)
         {
-          string data =  System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\" + fileName);
+            string data = System.IO.File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\" + fileName);
 
             return data;
         }
+
+        public static Dictionary<string, string> GetJSON(string jFileName)
+        {
+            
+            var jsonString = @GetFileData(jFileName);
+
+            var JSONObj = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
+           
+
+            return JSONObj;
+
+        }
+
+            
     }
 }
 
@@ -97,8 +113,8 @@ namespace DataStruct.Utility
 
 
 
-    
-        
-   
 
-    
+
+
+
+

@@ -57,7 +57,9 @@ namespace DataStruct.Controllers
                 });
 
             }
-               return View("Index", examViewModels);
+
+          
+            return View("Index", examViewModels);
         }
 
         [HttpPost]

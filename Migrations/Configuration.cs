@@ -30,7 +30,7 @@ namespace DataStruct.Migrations
                 context.Users.AddOrUpdate(new ApplicationUser()
                 {
                     Id = 1,
-                    FirstName = "Darius",
+                    FirstName = "D",
                     LastName = "Parker",
                     Address = "1 Address Ave",
                     City = "Test City",

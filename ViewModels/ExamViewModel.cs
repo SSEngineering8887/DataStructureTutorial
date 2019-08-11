@@ -17,5 +17,6 @@ namespace DataStruct.ViewModels
         public List<bool> IsCorrect { get; set; }
         public int QuestionModelId { get; set; }
         public int AnswerQuestionModelId { get; set; }
+       
     }
 }

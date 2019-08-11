@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.WebHooks;
 using Stripe;
+using Stripe.Checkout;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,51 +9,52 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace DataStruct.Controllers
 {
-    [Route("api/[controller]")]
-    public class StripeWebHookController : Controller
-    {
-        [HttpPost]
-        public ActionResult Index()
-        {
-            // MVC3/4: Since Content-Type is application/json in HTTP POST from Stripe
-            // we need to pull POST body from request stream directly
-            Stream req = Request.InputStream;
-            req.Seek(0, System.IO.SeekOrigin.Begin);
 
-            string json = new StreamReader(req).ReadToEnd();
-            StripeEvent stripeEvent = null;
+    [Route("api/[controller]")]
+    public class StripeWebHook : Controller
+    {
+        // You can find your endpoint's secret in your webhook settings
+        const string secret = "whsec_ZUhmAu0e62SlkK5Sc7XtFSGgIxXuh7lZ";
+
+        [HttpPost]
+        public void Index()
+        {
+            var json = new StreamReader(HttpContext.Request.InputStream).ReadToEnd();
+            
             try
             {
-                // as in header, you need https://github.com/jaymedavis/stripe.net
-                // it's a great library that should have been offered by Stripe directly
+                var stripeEvent = EventUtility.ConstructEvent(json,
+                    Request.Headers["Stripe-Signature"], secret);
 
-                stripeEvent = new WebHookHandlerContext(new List<string>() { "Action" }).GetDataOrDefault<StripeEvent>();
+                // Handle the checkout.session.completed event
+                if (stripeEvent.Type == Events.CheckoutSessionCompleted)
+                {
+                    var session = stripeEvent.Data.Object as Session;
+
+                    // Fulfill the purchase...
+                    HandleCheckoutSession(session);
+                }
+
             }
-            catch (Exception ex)
+            catch (StripeException e)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Unable to parse incoming event");
+                
+                //To do - Log the exception
             }
+        }
 
-            if (stripeEvent == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Incoming event empty");
+       
 
-            switch (stripeEvent.EventType)
-            {
-                case "charge.refunded":
-                    // do work
-                    break;
-
-                case "customer.subscription.updated":
-                case "customer.subscription.deleted":
-                case "customer.subscription.created":
-                    // do work
-                    break;
-            }
-
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        private void HandleCheckoutSession(Session session)
+        {
+            var tester = "I was Called";
+            tester += tester;
         }
     }
 }
-    
+
+
+

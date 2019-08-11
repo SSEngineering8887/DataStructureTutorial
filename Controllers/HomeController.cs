@@ -24,9 +24,9 @@ namespace DataStruct.Controllers
         public List<string> lectureList = new List<string>();
         public ExamType ExamType = new ExamType();
        
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? id = 1)
         {
-            if (id == null)
+            if (!id.HasValue)
             {
                 RedirectToAction("Cards", "Home");
             }

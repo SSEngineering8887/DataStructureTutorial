@@ -23,6 +23,7 @@ namespace DataStruct.App_Start
 
             // Initialize Stripe WebHook receiver
             config.InitializeReceiveStripeWebHooks();
+            
         }
     }
 }
