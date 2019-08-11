@@ -30,6 +30,10 @@
 <br/>
 <h4>Successful payment redirect</h4>
 <img src="https://user-images.githubusercontent.com/32503016/62429277-c07c2d00-b6da-11e9-9fcc-e557fa5780a9.gif" alt="Successful payment redirect">
+<h4>External Providers</h4>
+<img src="https://user-images.githubusercontent.com/32503016/62840995-88dc2a80-bc70-11e9-8877-07877414a3b6.PNG" alt="External Providers">
+
+
 
 
 
