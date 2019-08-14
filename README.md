@@ -1,4 +1,4 @@
-# DataStructureTutorial
+# Data Structure Tutorial
 <p><b>Detailed lectures follwed by exams on data structures such as:</b></p>
 <ul>
   <li>Arrays</li>
