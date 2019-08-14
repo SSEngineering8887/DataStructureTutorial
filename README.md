@@ -1,4 +1,22 @@
 # DataStructureTutorial
+<p><b>Detailed lectures follwed by exams on data structures such as:</b></p>
+<ul>
+  <li>Arrays</li>
+  <li>Linked Lists</li>
+  <li>Hash Tables</li>
+  <li>Binary Trees</li>
+  <li>and much more</li>
+  </ul>
+  <p><b>This project also includes features such as logging in using identity framework or external providers such as Google/Facebook. A user can also visit our product selection by clicking on the "Store" link on the navigation bar and add items to a shopping cart. After selecting items the user will be redirected to Stripe's checkout page where they can enter credit card information and simulate product purchases. </b></p>
+  <p><b>Technology Stack:</b></p>
+  <ul>
+  <li>Server side - C#</li>
+  <li>Database operations - T-SQL</li>
+  <li>ORM - Entity Framework</li>
+  <li>Front end - HTML, Bootstrap 4, Javascript</li>
+  <li>Framework - ASP.net MVC 5/li>
+  </ul>
+  <hr/>
 <h4>Login/Lecture Navigation</h4>
 <p><b><i>***Click on any gif to start over if it has reached the end of its duration***</i></b></p>
 <img src="https://user-images.githubusercontent.com/32503016/62429188-54e59000-b6d9-11e9-952f-b13b9927834c.gif" alt="Login/Lecture Navigation>
