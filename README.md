@@ -14,7 +14,7 @@
   <li>Database operations - T-SQL</li>
   <li>ORM - Entity Framework</li>
   <li>Front end - HTML, Bootstrap 4, Javascript</li>
-  <li>Framework - ASP.net MVC 5/li>
+  <li>Framework - ASP.net MVC 5</li>
   </ul>
   <hr/>
 <h4>Login/Lecture Navigation</h4>
